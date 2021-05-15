@@ -1,0 +1,87 @@
+openapi: 3.0.0
+info:
+  title: Appetito
+  version: '1.0'
+  description: Base API
+servers:
+  - url: 'http://localhost:3000'
+paths:
+  /products:
+    get:
+      summary: Loading products
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                    $ref: '#/components/schemas/product'
+
+  /orders:
+   post:
+      summary: Place order
+      tags: []
+      description: ''
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                pushedAmount:
+                  type: number
+                productCode:
+                  type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/order'
+        '500':
+          description: There is an error while creating an order
+
+
+components:
+  schemas:
+    product:
+      title: product
+      type: object
+      x-examples:
+        example-1:
+          _id : 609beb05fff945d33d82de9a
+          title : Product 1
+          code : code1
+          price : 9,
+          stock : 72,
+      properties:
+        _id:
+          type: string
+        title:
+          type: string
+        code:
+          type: string
+        price:
+          type: number
+        stock:
+          type: number
+    order:
+      title: offer
+      type: object
+      properties:
+        _id:
+          type: string
+        product:
+          type: string
+        price:
+          type: number
+        pushedMoney:
+          type: number
+        RemainingMoney:
+          type: number
